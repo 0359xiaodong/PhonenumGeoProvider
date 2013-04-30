@@ -1,5 +1,7 @@
 package me.tgic.phonenumgeo;
 
+import android.content.Context;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -83,6 +85,20 @@ public class FilePhonenumDataLoader {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static FilePhonenumDataLoader filePhonenumDataLoader;
+
+    public static FilePhonenumDataLoader getInstance(Context context){
+        if (filePhonenumDataLoader == null) {
+            filePhonenumDataLoader = new FilePhonenumDataLoader();
+            try {
+                filePhonenumDataLoader.init(context.getResources().openRawResource(R.raw.phonenumber));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return filePhonenumDataLoader;
     }
 
     public static void main(String[] args) throws IOException {

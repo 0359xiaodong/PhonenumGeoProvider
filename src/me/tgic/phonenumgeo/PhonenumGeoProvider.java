@@ -7,7 +7,6 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,15 +19,16 @@ public class PhonenumGeoProvider extends ContentProvider {
 
 //    private static final String GEO_AUTHORITY = "com.android.i18n.phonenumbers.geocoding";
     private static final String[] COLUMN_NAMES = new String[]{"GEOCODE"};
-    private FilePhonenumDataLoader filePhonenumDataLoader = new FilePhonenumDataLoader();
-
+//    private FilePhonenumDataLoader filePhonenumDataLoader = new FilePhonenumDataLoader();
+//
     @Override
     public boolean onCreate() {
-        try {
-            filePhonenumDataLoader.init(getContext().getResources().openRawResource(R.raw.phonenumber));
-        } catch (IOException e) {
-            return false;
-        }
+
+//        try {
+//            filePhonenumDataLoader.init(getContext().getResources().openRawResource(R.raw.phonenumber));
+//        } catch (IOException e) {
+//            return false;
+//        }
 
         return true;
     }
@@ -60,7 +60,7 @@ public class PhonenumGeoProvider extends ContentProvider {
     private String searchGeoCode(String countryIso,String number){
 
         if("CN".equals(countryIso)){
-            return filePhonenumDataLoader.searchGeocode(number);
+            return FilePhonenumDataLoader.getInstance(getContext()).searchGeocode(number);
         }
         return null;
     }
