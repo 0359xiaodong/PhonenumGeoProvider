@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_phonenumgeoprovider" default="compile.module.phonenumgeoprovider">
+  <dirname property="module.phonenumgeoprovider.basedir" file="${ant.file.module_phonenumgeoprovider}"/>
+  
+  <property name="module.jdk.home.phonenumgeoprovider" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.phonenumgeoprovider" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.phonenumgeoprovider" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.phonenumgeoprovider" value="${compiler.args}"/>
+  
+  <property name="phonenumgeoprovider.output.dir" value="${module.phonenumgeoprovider.basedir}/out/production/PhonenumGeoProvider"/>
+  <property name="phonenumgeoprovider.testoutput.dir" value="${module.phonenumgeoprovider.basedir}/out/test/PhonenumGeoProvider"/>
+  
+  <path id="phonenumgeoprovider.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="phonenumgeoprovider.module.production.classpath">
+    <path refid="${module.jdk.classpath.phonenumgeoprovider}"/>
+  </path>
+  
+  <path id="phonenumgeoprovider.runtime.production.module.classpath">
+    <pathelement location="${phonenumgeoprovider.output.dir}"/>
+  </path>
+  
+  <path id="phonenumgeoprovider.module.classpath">
+    <path refid="${module.jdk.classpath.phonenumgeoprovider}"/>
+    <pathelement location="${phonenumgeoprovider.output.dir}"/>
+  </path>
+  
+  <path id="phonenumgeoprovider.runtime.module.classpath">
+    <pathelement location="${phonenumgeoprovider.testoutput.dir}"/>
+    <pathelement location="${phonenumgeoprovider.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.phonenumgeoprovider">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.phonenumgeoprovider">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.phonenumgeoprovider"/>
+  </patternset>
+  
+  <path id="phonenumgeoprovider.module.sourcepath">
+    <dirset dir="${module.phonenumgeoprovider.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.phonenumgeoprovider" depends="compile.module.phonenumgeoprovider.production,compile.module.phonenumgeoprovider.tests" description="Compile module PhonenumGeoProvider"/>
+  
+  <target name="compile.module.phonenumgeoprovider.production" depends="register.custom.compilers" description="Compile module PhonenumGeoProvider; production classes">
+    <mkdir dir="${phonenumgeoprovider.output.dir}"/>
+    <javac2 destdir="${phonenumgeoprovider.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.phonenumgeoprovider}/javac">
+      <compilerarg line="${compiler.args.phonenumgeoprovider}"/>
+      <bootclasspath refid="phonenumgeoprovider.module.bootclasspath"/>
+      <classpath refid="phonenumgeoprovider.module.production.classpath"/>
+      <src refid="phonenumgeoprovider.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.phonenumgeoprovider"/>
+    </javac2>
+    
+    <copy todir="${phonenumgeoprovider.output.dir}">
+      <fileset dir="${module.phonenumgeoprovider.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.phonenumgeoprovider"/>
+      </fileset>
+      <fileset dir="${module.phonenumgeoprovider.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.phonenumgeoprovider"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.phonenumgeoprovider.tests" depends="register.custom.compilers,compile.module.phonenumgeoprovider.production" description="compile module PhonenumGeoProvider; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.phonenumgeoprovider" description="cleanup module">
+    <delete dir="${phonenumgeoprovider.output.dir}"/>
+    <delete dir="${phonenumgeoprovider.testoutput.dir}"/>
+  </target>
+</project>
