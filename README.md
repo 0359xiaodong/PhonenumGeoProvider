@@ -1,6 +1,12 @@
 PhonenumGeoProvider
 ===================
-提供号码地理位置的 Provider 
+提供号码地理位置的 Android 应用
+
+会在来电时候显示一个 Toast
+
+Why Another
+-----------
+因为我对权限比较敏感，又没有找到开源的产品就自己作了一个
 
 Usage
 -----
